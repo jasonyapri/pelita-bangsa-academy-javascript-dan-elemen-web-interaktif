@@ -6,33 +6,33 @@ function App() {
   const [input, setInput] = useState('');
 
   const addTodo = () => {
-    if (input.trim()) {
-      setTodos([...todos, input]);
+    const trimmedInput = input.trim();
+    if (trimmedInput) {
+      setTodos([...todos, trimmedInput]);
       setInput('');
     }
   };
 
   const removeTodo = (index) => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+    setTodos(todos.filter((_, i) => i !== index));
   };
 
   return (
     <div className="App">
-      <div className="Todo-App">
-        <h2>Jason's Todo List</h2>
+      <div className="container">
+        <h1>React To-Do List</h1>
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Add a new todo"
+          placeholder="Add a new task..."
         />
-        <button onClick={addTodo}>Add</button>
+        <button onClick={addTodo} id="addTaskButton">Add Task</button>
         <ul>
           {todos.map((todo, index) => (
             <li key={index}>
-              {todo} <button onClick={() => removeTodo(index)}>Remove</button>
+              {todo}
+              <span onClick={() => removeTodo(index)}>×</span>
             </li>
           ))}
         </ul>
